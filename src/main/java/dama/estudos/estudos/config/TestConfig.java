@@ -1,14 +1,8 @@
 package dama.estudos.estudos.config;
 
-import dama.estudos.estudos.entities.Category;
-import dama.estudos.estudos.entities.Order;
-import dama.estudos.estudos.entities.Product;
-import dama.estudos.estudos.entities.User;
+import dama.estudos.estudos.entities.*;
 import dama.estudos.estudos.enums.OrderStatus;
-import dama.estudos.estudos.repositories.CategoryRepository;
-import dama.estudos.estudos.repositories.OrderRepository;
-import dama.estudos.estudos.repositories.ProductRepository;
-import dama.estudos.estudos.repositories.UserRepository;
+import dama.estudos.estudos.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,5 +64,12 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
