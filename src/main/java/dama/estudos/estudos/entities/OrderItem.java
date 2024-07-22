@@ -1,6 +1,7 @@
 package dama.estudos.estudos.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dama.estudos.estudos.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -32,7 +33,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-    @JsonBackReference
+    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }
@@ -41,7 +42,7 @@ public class OrderItem implements Serializable {
         id.setProduct(product);
     }
 
-    @JsonBackReference
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
