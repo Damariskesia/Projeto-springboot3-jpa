@@ -1,6 +1,7 @@
 package dama.estudos.estudos.services;
 
 import dama.estudos.estudos.entities.User;
+import dama.estudos.estudos.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import dama.estudos.estudos.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj){
