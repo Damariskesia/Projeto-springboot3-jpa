@@ -1,7 +1,10 @@
 package dama.estudos.estudos.services;
 
 import dama.estudos.estudos.entities.User;
+import dama.estudos.estudos.services.exceptions.DatabaseException;
 import dama.estudos.estudos.services.exceptions.ResourceNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import dama.estudos.estudos.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,13 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try{
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e){
+           throw new ResourceNotFoundException(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj){
