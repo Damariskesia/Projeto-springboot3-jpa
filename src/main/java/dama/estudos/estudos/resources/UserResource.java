@@ -36,4 +36,5 @@ public class UserResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
+
 }
